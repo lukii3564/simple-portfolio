@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dev Luki — Professional Portfolio</title>
+  <meta name="description" content="Dev Luki — Full stack developer. Portfolio showcasing web development, design, projects and contact." />
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#0f0f10;
+      --muted:#9aa0a6;
+      --accent:#ff6a00; /* orange */
+      --glass:rgba(255,255,255,0.04);
+      --glass-2:rgba(255,255,255,0.02);
+      --max-width:1100px;
+      --radius:14px;
+      --ff-sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:var(--ff-sans);background:linear-gradient(180deg,var(--bg),#070707);color:#e7e7e7;line-height:1.5;-webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
+    .container{max-width:var(--max-width);margin:0 auto;padding:40px;}
+
+    /* NAV */
+    header{position:fixed;left:0;right:0;top:16px;z-index:50;backdrop-filter:blur(6px);}
+    .nav{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-radius:999px;background:linear-gradient(90deg,var(--glass),var(--glass-2));box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ff8a3d);display:flex;align-items:center;justify-content:center;font-weight:700;color:#111}
+    .brand h1{font-size:16px;margin:0}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+    nav a:hover{color:#fff;background:rgba(255,255,255,0.04)}
+
+    /* HERO */
+    .hero{min-height:80vh;display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;padding-top:90px}
+    .hero .intro h2{font-size:34px;margin:0 0 12px}
+    .muted{color:var(--muted)}
+    .tagline{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+    .cta{display:flex;gap:12px}
+    .btn{background:var(--accent);border:none;color:#111;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(255,106,0,0.12);transition:transform .18s ease}
+    .btn:hover{transform:translateY(-4px)}
+    .outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 16px}
+
+    /* card */
+    .profile-card{background:linear-gradient(180deg,var(--card),#111);padding:22px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+    .avatar{width:100%;height:320px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111,#0d0d0d);position:relative;overflow:hidden}
+    .avatar img{width:120px;height:120px;border-radius:999px;border:4px solid rgba(255,255,255,0.06);object-fit:cover}
+    .avatar .hex{position:absolute;right:-40px;bottom:-30px;opacity:.08;font-size:200px;font-weight:900;color:var(--accent)}
+    .mini{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    .chip{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:999px;font-weight:600}
+
+    /* SKILLS */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .skill{background:var(--glass);padding:12px;border-radius:12px}
+    .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin-top:8px}
+    .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ff8a3d);border-radius:999px;transition:width 1s ease}
+
+    /* PROJECTS */
+    .projects{margin-top:40px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .filter{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .filter.active{background:linear-gradient(90deg,rgba(255,106,0,0.12),rgba(255,106,0,0.06));color:var(--accent);border:1px solid rgba(255,106,0,0.18)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:linear-gradient(180deg,#0f0f10,#0b0b0b);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,0.6)}
+    .project-img{height:140px;border-radius:10px;background:linear-gradient(135deg,#141414,#0d0d0d);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+    .tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03)}
+
+    /* EXPERIENCE */
+    .timeline{border-left:2px solid rgba(255,255,255,0.03);padding-left:18px;margin-top:10px}
+    .item{position:relative;margin-bottom:22px}
+    .item:before{content:'';position:absolute;left:-11px;top:4px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ff8a3d);border:4px solid #0b0b0b}
+
+    /* TESTIMONIALS */
+    .carousel{display:flex;gap:12px;overflow:auto;padding-bottom:8px}
+    .quote{min-width:320px;background:var(--glass);padding:16px;border-radius:12px}
+
+    /* FAQ */
+    .faq .q{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;margin-bottom:8px;cursor:pointer}
+    .ans{max-height:0;overflow:hidden;transition:max-height .34s ease;padding:0 12px}
+    .q.open + .ans{max-height:160px;padding:12px}
+
+    /* CONTACT */
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;color:#fff}
+    textarea{grid-column:1/3;min-height:120px}
+
+    /* FOOTER */
+    footer{margin-top:40px;padding:30px 0;color:var(--muted);text-align:center}
+
+    /* RESPONSIVE */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr;}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:680px){
+      .nav{padding:8px 12px}
+      .grid{grid-template-columns:1fr}
+      header{top:8px}
+      .container{padding:20px}
+      form{grid-template-columns:1fr}
+      textarea{grid-column:1}
+    }
+
+    /* Animations */
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+    .float{animation:floaty 6s ease-in-out infinite}
+
+    /* small helpers */
+    .muted-small{color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">DL</div>
+        <div>
+          <h1 style="margin:0">Dev Luki</h1>
+          <div style="font-size:12px;color:var(--muted)">Full-stack developer · Web & UI</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <div class="intro">
+        <div class="tagline muted-small">Hi  I'm</div>
+        <h2 class="reveal">Dev Luki <span style="color:var(--accent);font-weight:800">Full‑Stack 
+            Developer</span></h2>
+        <p class="muted reveal">I build clean, fast, and accessible web apps.
+             My work blends frontend polish with backend logic and cloud-ready deployments.</p>
+        <div class="mini reveal">
+          <div class="chip">HTML</div>
+          <div class="chip">CSS</div>
+          <div class="chip">JavaScript</div>
+          <div class="chip">React</div>
+          <div class="chip">Node.js</div>
+          <div class="chip">MongoDB</div>
+        </div>
+        <div style="margin-top:18px" class="cta reveal">
+          <button class="btn" onclick="scrollToSection('projects')">View projects</button>
+          <a class="outline" href="#contact">Hire me</a>
+        </div>
+
+        <div style="margin-top:24px" class="reveal muted-small">Locations: Nairobi, Kenya · Available for remote work</div>
+      </div>
+
+      <aside class="profile-card reveal float">
+        <div class="avatar">
+          <!-- Replace src with your photo -->
+          <img src="mypicture/lukii.jpeg" width="300" height="350" alt="Dev Luki">
+          <div class="hex">DL</div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:800">Lukoye Jackson.</div>
+              <div class="muted-small">Full-stack developer</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:800">5+ yrs</div>
+              <div class="muted-small">Experience</div>
+            </div>
+          </div>
+
+          <div class="skills">
+            <div class="skill">
+              <div style="font-weight:700">Frontend</div>
+              <div class="muted-small">HTML · CSS · JS · React</div>
+              <div class="bar"><i data-width="92%"></i></div>
+            </div>
+            <div class="skill">
+              <div style="font-weight:700">Backend</div>
+              <div class="muted-small">Node · Express · APIs</div>
+              <div class="bar"><i data-width="82%"></i></div>
+            </div>
+            <div class="skill">
+              <div style="font-weight:700">Cloud & DevOps</div>
+              <div class="muted-small">Deployments · CI/CD</div>
+              <div class="bar"><i data-width="68%"></i></div>
+            </div>
+            <div class="skill">
+              <div style="font-weight:700">Design & Content</div>
+              <div class="muted-small">UI/UX · Graphic design · Writing</div>
+              <div class="bar"><i data-width="86%"></i></div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <a class="outline" href="#projects">See projects</a>
+            <a class="outline" href="#contact">Contact</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" style="margin-top:24px" class="reveal">
+      <h3>About</h3>
+      <p class="muted-small">I'm (Dev Luki), a full-stack developer [PLP COHORT] for
+         months and now builds production-ready web apps with clean UI, 
+         accessible design, and a focus on performance. I combine skills 
+         in web development, design, project management, and content creation 
+          ideal for startups and small teams.</p>
+      <div style="display:flex;gap:18px;margin-top:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h4>What I do</h4>
+          <ul class="muted-small">
+            <li>Build responsive, accessible websites and web apps</li>
+            <li>Turn UI designs into production code</li>
+            <li>Implement RESTful APIs and backend services</li>
+            <li>Deploy and monitor apps on the cloud</li>
+          </ul>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <h4>Notable skills</h4>
+          <div class="mini">
+            <div class="chip">HTML5</div>
+            <div class="chip">CSS3</div>
+            <div class="chip">JavaScript</div>
+            <div class="chip">React</div>
+            <div class="chip">Node.js</div>
+            <div class="chip">MongoDB</div>
+            <div class="chip">Git</div>
+            <div class="chip">SEO basics</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects reveal">
+      <h3>Projects</h3>
+      <div class="filters">
+        <div class="filter active" data-filter="all">All</div>
+        <div class="filter" data-filter="frontend">Frontend</div>
+        <div class="filter" data-filter="fullstack">Fullstack</div>
+        <div class="filter" data-filter="design">Design</div>
+      </div>
+
+      <div class="grid" id="projectsGrid">
+        <!-- Project 1 -->
+        <div class="card" data-tags="frontend">
+          <div class="project-img"><img src="mypicture/personal portfolio.png"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">Personal Portfolio</h4>
+          <p class="muted-small">A responsive portfolio website 
+            showcasing projects, blog posts, and contact options.</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JS</span>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="card" data-tags="fullstack">
+          <div class="project-img"><img src="mypicture/e commerce.jpg"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">E‑commerce Demo</h4>
+          <p class="muted-small">Fullstack demo with product listing, cart and checkout simulation.</p>
+          <div class="tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Express</span>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="card" data-tags="design">
+          <div class="project-img"><img src="mypicture/brand logo.jpg"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">Branding & UI Kit</h4>
+          <p class="muted-small">UI kit and brand assets for a local startup logos, colors and components.</p>
+          <div class="tags">
+            <span class="tag">Figma</span>
+            <span class="tag">Graphic Design</span>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="card" data-tags="frontend">
+          <div class="project-img"><img src="mypicture/tech blogs.jpeg"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">React Blog</h4>
+          <p class="muted-small">A performant blog with markdown rendering, search and pagination.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">SEO</span></div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="card" data-tags="fullstack">
+          <div class="project-img"><img src="mypicture/mpesa integration.jpg"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">Payment Integration</h4>
+          <p class="muted-small">Demo of M‑Pesa STK Push integration (sandbox) and payment flow UX.</p>
+          <div class="tags"><span class="tag">API</span><span class="tag">Node</span></div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="card" data-tags="design">
+          <div class="project-img"><img src="mypicture/video editing .jpg"
+             width="300" height="90%"   alt=""></div>
+          <h4 style="margin:10px 0 6px">Promo Video Edit</h4>
+          <p class="muted-small">Short promo video edit for a product launch  cuts, captions and music sync.</p>
+          <div class="tags"><span class="tag">Video Editing</span><span class="tag">Premiere</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="experience" class="reveal" style="margin-top:30px">
+      <h3>Experience</h3>
+      <div class="timeline">
+        <div class="item">
+          <div style="font-weight:800">Freelance Web Developer · 2022 — Present</div>
+          <div class="muted-small">Built websites & web apps for local businesses; handled deployments and SEO basics.</div>
+        </div>
+        <div class="item">
+          <div style="font-weight:800">Opera News Hub & Scooper · Contributor</div>
+          <div class="muted-small">Content creation and tech articles; optimized content for engagement and reach.</div>
+        </div>
+        <div class="item">
+          <div style="font-weight:800">Various Projects · UI/Design & Video Editing</div>
+          <div class="muted-small">Branding, graphics and short-form video work for product promotions.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" style="margin-top:30px" class="reveal">
+      <h3>Testimonials</h3>
+      <div class="carousel">
+        <div class="quote">
+          <div style="font-weight:800">Ethan Carter  · CEO, MegLanite Pharmacies EA .</div>
+          <div class="muted-small">Rating: ⭐⭐⭐⭐⭐ (5/5) <br>
+            “Dev Luki exceeded our expectations at Meglanite.
+            The website he built for us is clean, intuitive, 
+            and perfectly aligned with our brand’s professionalism.
+            His understanding of user experience and responsiveness
+            is top-tier. We are proud to have worked with him and look
+             forward to more projects.” <br>
+          — Ethan Carter, CEO, MegLanite Pharmacies EA
+          </div>
+        </div>
+        <div class="quote">
+          <div style="font-weight:800">Engineer Patrick · Eng: Mobi Works </div>
+          <div class="muted-small">"Rating: ⭐⭐⭐⭐⭐ (5/5) <br>
+           "Working with Dev Luki was one of the  best decisions I 
+           made for my brand. He transformed my ideas into a modern,
+            fast, and professionally designed website that perfectly 
+            represents my engineering services. His attention to detail, 
+            communication, and ability to deliver beyond expectations truly
+             impressed me. I highly recommend him to anyone looking for a reliable 
+             and skilled developer." <br>
+          — Eng. Patrick M., Civil Engineer & Project Consultant</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" style="margin-top:30px" class="reveal faq">
+      <h3>FAQ</h3>
+      <div class="q">How long does a website take to build?</div>
+      <div class="ans">It depends on complexity, simple 1‑page sites can take 3–7 days; full apps may take several weeks.</div>
+
+      <div class="q">Do you work remotely?</div>
+      <div class="ans">Yes, I take remote projects and can collaborate across time zones.</div>
+
+      <div class="q">Can you show me the code?</div>
+      <div class="ans">Absolutely, I share GitHub repos or deploy live demos for review.</div>
+    </section>
+
+  <form id="contactForm" 
+      action="https://formspree.io/f/xgvvqbpz" 
+      method="POST">
+  <input name="name" placeholder="Your name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input name="subject" placeholder="Subject" />
+  <textarea name="message" placeholder="Message" required></textarea>
+  <input type="hidden" name="_subject" value="New Portfolio Message">
+  <button type="submit" class="btn">Send message</button>
+</form>
+
+<!-- Add a hidden popup -->
+<div id="popup" style="display:none;position:fixed;top:20px;right:20px;background:var(--accent);color:#111;padding:14px 20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.4);z-index:999;font-weight:700;">
+  Thanks for submitting! Dev Luki will respond in a few.
+</div>
+
+
+
+    <footer>
+      <div>© <strong>Dev Luki</strong>  Built with Precision · Nairobi, Kenya</div>
+      <div style="margin-top:8px"><small class="muted-small">Check it out </small></div>
+    </footer>
+  </main>
+
+  <script>
+    // helpers
+    const qs=(s,el=document)=>el.querySelector(s);
+    const qsa=(s,el=document)=>[...el.querySelectorAll(s)];
+
+    // Smooth nav link active class on click
+    qsa('nav a').forEach(a=>a.addEventListener('click',e=>{
+      // close mobile menu (if any) and add small animation
+      a.classList.add('active'); setTimeout(()=>a.classList.remove('active'),400);
+    }));
+
+    function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});} 
+
+    // Reveal on scroll
+    const reveals = qsa('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target)}})
+    },{threshold:0.12});
+    reveals.forEach(r=>io.observe(r));
+
+    // Animate skill bars when visible
+    qsa('.bar i').forEach(el=>{
+      const w = el.getAttribute('data-width')||'60%';
+      el.style.width = '0%';
+      // wait for reveal
+      const parent = el.closest('.reveal') || document.body;
+      const io2 = new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){el.style.width=w;io2.unobserve(en.target)}})}, {threshold:0.2});
+      io2.observe(parent);
+    });
+
+    // Project filters
+    qsa('.filter').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        qsa('.filter').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        qsa('.card').forEach(c=>{
+          c.style.display = (f==='all' || c.dataset.tags.includes(f)) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // FAQ accordion
+    qsa('.faq .q').forEach(q=>q.addEventListener('click',()=>{
+      q.classList.toggle('open');
+      // close others
+      qsa('.faq .q').forEach(other=>{if(other!==q) other.classList.remove('open')});
+    }));
+
+    // Contact form (local mock)
+   const form = document.querySelector('#contactForm');
+const popup = document.querySelector('#popup');
+
+form.addEventListener('submit', (e)=>{
+  e.preventDefault(); // prevent default redirect
+
+  const data = new FormData(form);
+  const btn = form.querySelector('button');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if(response.ok){
+      // Show custom popup
+      popup.style.display = 'block';
+      setTimeout(()=>{popup.style.display='none'}, 4000); // auto hide after 4s
+      form.reset();
+    } else {
+      alert('Oops! There was a problem submitting the form.');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Send message';
+  }).catch(err=>{
+    alert('Network error. Try again.');
+    btn.disabled = false;
+    btn.textContent = 'Send message';
+  });
+});
+
+
+    // Tiny typing effect in hero (non-blocking)
+    (function(){
+      const el = document.createElement('div'); el.style.marginTop='8px';el.className='muted-small';
+      qs('#home .intro').appendChild(el);
+      const words = ['Web apps','UI & UX','Fast code','Accessible sites','Cloud ready'];
+      let i=0, j=0, dir=1, cur='';
+      function tick(){
+        const w = words[i];
+        if(dir===1){cur = w.slice(0,++j);}
+        else{cur = w.slice(0,--j);} el.textContent = cur + '|';
+        if(j===w.length && dir===1){dir=-1; setTimeout(tick,900);}
+        else if(j===0 && dir===-1){dir=1;i=(i+1)%words.length;setTimeout(tick,300);} else setTimeout(tick,60);
+      }
+      tick();
+    })();
+
+    // small accessibility: focus outlines for keyboard users
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Tab') document.body.classList.add('show-focus') });
+
+  </script>
+</body>
+</html>
