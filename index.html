@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dev Luki  Professional Portfolio</title>
   <meta name="description" content="Dev Luki — Full stack developer. Portfolio showcasing web development, design, projects and contact." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     :root{
       --bg:#0b0b0b;
@@ -127,17 +128,166 @@ nav a:hover {
     .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin-top:8px}
     .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ff8a3d);border-radius:999px;transition:width 1s ease}
 
-    /* PROJECTS */
-    .projects{margin-top:40px}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  
+
+/* PROJECTS UPDATED */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+ .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
     .filter{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
     .filter.active{background:linear-gradient(90deg,rgba(255,106,0,0.12),rgba(255,106,0,0.06));color:var(--accent);border:1px solid rgba(255,106,0,0.18)}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:linear-gradient(180deg,#0f0f10,#0b0b0b);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-    .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,0.6)}
-    .project-img{height:140px;border-radius:10px;background:linear-gradient(135deg,#141414,#0d0d0d);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
     .tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
     .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03)}
+
+.card {
+    background: linear-gradient(180deg, #0f0f10, #0b0b0b);
+    padding: 16px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    /* Thin base border */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    /* 1. The Light Orange "Opaque" Shadow Overlay */
+    box-shadow: inset 0 0 40px rgba(255, 138, 61, 0.05), 
+                0 20px 40px rgba(0, 0, 0, 0.4);
+    
+    /* 2. The Glowing Border Effect (Bottom-heavy) */
+    border-color: transparent;
+    border-image: linear-gradient(to top, 
+        rgba(255, 138, 61, 0.8) 0%, 
+        rgba(255, 138, 61, 0.2) 50%, 
+        rgba(255, 255, 255, 0.03) 100%
+    ) 1;
+}
+
+/* 3. Image Hover/Click Effect */
+.project-img {
+    height: 140px;
+    border-radius: 10px;
+    background: #141414;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+
+/* Simulate "Click to see" - zooms slightly on hover */
+.card:hover .project-img img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+/* Adding a "View" label that appears on hover */
+.project-img::after {
+   
+    position: absolute;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    opacity: 0;
+    transition: 0.3s;
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.card:hover .project-img::after {
+    opacity: 0.1;
+}
+
+/* Ensure the image container can hold the overlay */
+/*.project-img {
+    position: relative;
+    height: 140px; 
+    border-radius: 10px;
+    background: #141414;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}  */
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* The Opaque Orange Overlay */
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 138, 61, 0.15); /* Shallow orange tint */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px); /* Makes image look opaque/blurred on hover */
+}
+
+/* The View Button */
+.view-btn {
+    background:#fff ;
+    color:  #ff8a3d;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+/* HOVER STATES */
+.card:hover {
+    transform: translateY(-8px);
+    /* High glow bottom, low glow top/sides */
+    border-bottom: 2px solid #ff8a3d !important;
+    border-left: 1px solid rgba(255, 138, 61, 0.3);
+    border-right: 1px solid rgba(255, 138, 61, 0.3);
+    /* Shallow orange shadow (The "opaque" feel) */
+    box-shadow: inset 0 0 30px rgba(255, 138, 61, 0.1), 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.card:hover .project-overlay {
+    opacity: 1;
+}
+
+.card:hover .project-img img {
+    transform: scale(1.1);
+}
+
+.card:hover .view-btn {
+    transform: translateY(0);
+}
+
+.view-btn:hover {
+    background: #ff8a3d;
+    color: #fff;
+    transform: scale(1.05) !important;
+}
+
+
+
+
 
    /* EXPERIENCE GRID LAYOUT */
 .experience-grid {
@@ -276,10 +426,55 @@ nav a:hover {
 }
 
 
-    /* FAQ */
-    .faq .q{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;margin-bottom:8px;cursor:pointer}
-    .ans{max-height:0;overflow:hidden;transition:max-height .34s ease;padding:0 12px}
-    .q.open + .ans{max-height:160px;padding:12px}
+.faq-item {
+  background: var(--glass);
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 138, 61, 0.25); /* Thin orange border */
+  margin-bottom: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item:hover {
+  border-color: #ff8a3d;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 8px 30px rgba(255, 138, 61, 0.1);
+  transform: translateX(5px); /* Subtle slide effect */
+}
+
+.q {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* The Yellow/Orange Dot for the FAQ */
+.q::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #ff8a3d, #ffc107);
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(255, 138, 61, 0.5);
+}
+
+.ans {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  padding-left: 25px; /* Aligns text under the question, not the dot */
+}
+
+.ans strong {
+  color: #ff8a3d; /* Highlights key technical terms in orange */
+  font-weight: 600;
+}
+
 
     /* CONTACT */
     form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -315,6 +510,35 @@ nav a:hover {
     .brand-accent {
   color: var(--accent); /* your orange */
 }
+
+/* FOOTER SOCIALS */
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px; /* Balanced spacing */
+  margin-bottom: 15px;
+}
+
+.social-links a {
+  color: rgba(255, 255, 255, 0.4); /* Subtle muted look */
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-links a:hover {
+  color: #ff8a3d; /* Your bright accent orange */
+  transform: translateY(-6px); /* Precision lift */
+  /* Elegant glow matching your project cards */
+  filter: drop-shadow(0 0 10px rgba(255, 138, 61, 0.5));
+}
+
+/* Optional: Slight color branding on hover for extra detail */
+.social-links a:hover .fa-github { color: #fff; }
+.social-links a:hover .fa-instagram { color: #e4405f; }
+.social-links a:hover .fa-whatsapp { color: #25d366; }
+
 
 .nav h1 {
   color: #fff;
@@ -465,27 +689,42 @@ nav a:hover {
         <div class="filter" data-filter="frontend">Frontend</div>
         <div class="filter" data-filter="fullstack">Fullstack</div>
         <div class="filter" data-filter="design">Design</div>
-      </div>
+      </div> 
 
       <div class="grid" id="projectsGrid">
+       
         <!-- Project 1 -->
-        <div class="card" data-tags="frontend">
-          <div class="project-img"><img src="mypicture/personal portfolio.png"
-             width="300" height="90%"   alt=""></div>
-          <h4 style="margin:10px 0 6px">Personal Portfolio</h4>
-          <p class="muted-small">A responsive portfolio website 
-            showcasing projects, blog posts, and contact options.</p>
-          <div class="tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JS</span>
-          </div>
-        </div>
+<div class="card" data-tags="frontend">
+  <div class="project-img">
+    <img src="mypicture/personal portfolio.png" 
+    width="300" height="90%" alt="Portfolio">
+    <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="https://lukii3564.github.io/simple-portfolio/" 
+      target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+  </div>
 
-        <!-- Project 3 -->
+  <h4 style="margin:10px 0 6px">Personal Portfolio</h4>
+  <p class="muted-small">A responsive portfolio website showcasing projects, blog posts, and contact options.</p>
+  <div class="tags">
+    <span class="tag">HTML</span>
+    <span class="tag">CSS</span>
+    <span class="tag">JS</span>
+  </div>
+</div>
+
+
+        <!-- Project 2 -->
         <div class="card" data-tags="fullstack">
           <div class="project-img"><img src="mypicture/e commerce.jpg"
              width="300" height="90%"   alt=""></div>
+
+ <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="" target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+  
           <h4 style="margin:10px 0 6px">E‑commerce Demo</h4>
           <p class="muted-small">Fullstack demo with product listing, cart and checkout simulation.</p>
           <div class="tags">
@@ -497,10 +736,17 @@ nav a:hover {
 
 
 
-        <!-- Project 4 -->
+        <!-- Project 3 -->
         <div class="card" data-tags="design">
           <div class="project-img"><img src="mypicture/ecommerce.jpeg"
              width="300" height="90%"   alt=""></div>
+
+ <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="https://ecommercemn.vercel.app/" target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+  
+
           <h4 style="margin:10px 0 6px">Shopping Website</h4>
           <p class="muted-small">An e-commerce website for selling products online.</p>
           <div class="tags">
@@ -513,10 +759,18 @@ nav a:hover {
         </div>
 
 
-        <!-- Project 5 -->
+        <!-- Project 4 -->
         <div class="card" data-tags="design">
           <div class="project-img"><img src="mypicture/brand logo.jpg"
              width="300" height="90%"   alt=""></div>
+
+ <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="https://yourlink.com" target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+
+
+
           <h4 style="margin:10px 0 6px">Branding & UI Kit</h4>
           <p class="muted-small">UI kit and brand assets for a local startup logos, colors and components.</p>
           <div class="tags">
@@ -525,10 +779,19 @@ nav a:hover {
           </div>
         </div>
 
-        <!-- Project 6 -->
+        <!-- Project 5 -->
         <div class="card" data-tags="frontend">
           <div class="project-img"><img src="mypicture/tech blogs.jpeg"
              width="300" height="90%"   alt=""></div>
+
+ <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="https://yourlink.com" target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+  
+
+
+
           <h4 style="margin:10px 0 6px">React Blog</h4>
           <p class="muted-small">A performant blog with markdown rendering, search and pagination.</p>
           <div class="tags">
@@ -538,10 +801,16 @@ nav a:hover {
           </div>
         </div>
 
-        <!-- Project 7 -->
+        <!-- Project 6 -->
         <div class="card" data-tags="fullstack">
           <div class="project-img"><img src="mypicture/mpesa integration.jpg"
              width="300" height="90%"   alt=""></div>
+
+ <!-- The View Overlay -->
+    <div class="project-overlay">
+      <a href="https://yourlink.com" target="_blank" class="view-btn">View Project ↗</a>
+    </div>
+
           <h4 style="margin:10px 0 6px">Payment Integration</h4>
           <p class="muted-small">Demo of M‑Pesa STK Push integration (sandbox) and payment flow UX.</p>
           <div class="tags">
@@ -550,14 +819,18 @@ nav a:hover {
              <span class="tag">Web sockets</span>
           </div>
         </div>
+                  
 
-
-
-
-         <!-- Project 8-->
+         <!-- Project 7-->
         <div class="card" data-tags="frontend">
           <div class="project-img"><img src="mypicture/timstar port.jpeg"
              width="300" height="90%"   alt=""></div>
+
+
+          <div class="project-overlay">
+            <a href="https://timstar-production.vercel.app/" target="_blank" class="view-btn">View Project ↗</a>
+          </div>
+ 
           <h4 style="margin:10px 0 6px">Producer portfolio</h4>
           <p class="muted-small">A front-back portfolio website for a producer showcasing projects, blog posts, and contact options.</p>
           <div class="tags">
@@ -569,10 +842,16 @@ nav a:hover {
         </div>
        
 
-        <!-- Project 9 -->
+        <!-- Project 8 -->
         <div class="card" data-tags="design">
           <div class="project-img"><img src="mypicture/vetra bags.jpeg"
              width="300" height="90%"   alt=""></div>
+
+          <div class="project-overlay">
+            <a href="https://vetra-bags-brand-store.vercel.app/" target="_blank"
+            class="view-btn">View Project ↗</a>
+          </div>
+      
           <h4 style="margin:10px 0 6px">Vetra Bags</h4>
           <p class="muted-small">A promotional website for the Vetra Bags e-commerce: Order your fashionable bags today.</p>
           <div class="tags">
@@ -583,11 +862,16 @@ nav a:hover {
         </div>
 
 
-
-         <!-- Project 10 -->
+         <!-- Project 9 -->
         <div class="card" data-tags="design">
           <div class="project-img"><img src="mypicture/bible site .jpeg"
              width="300" height="90%"   alt=""></div>
+        
+            <div class="project-overlay">
+              <a href="https://ysfbiblestudy.vercel.app/" target="_blank"
+              class="view-btn">View Project ↗</a>
+            </div>
+
           <h4 style="margin:10px 0 6px">Bible Motivations</h4>
           <p class="muted-small">A website for the Bible Motivations e-commerce: Share the word and inspire others.</p>
           <div class="tags">
@@ -596,10 +880,17 @@ nav a:hover {
           </div>
         </div>
 
-        <!-- Project 11 -->
-        <div class="card" data-tags="design">
+        <!-- Project 10 -->
+        <div class="card" data-tags="fullstack">
           <div class="project-img"><img src="mypicture/movie streaming .jpeg"
              width="300" height="90%"   alt=""></div>
+
+    
+        <div class="project-overlay">
+          <a href="https://nabees-stream.vercel.app" target="_blank" 
+          class="view-btn">View Project ↗</a>
+        </div>
+  
           <h4 style="margin:10px 0 6px">StreamFlix: </h4>
           <p class="muted-small">A streaming platform for watching movies and TV shows For free. 2K, 4K quality available.</p>
           <div class="tags">
@@ -609,24 +900,34 @@ nav a:hover {
           </div>
         </div>       
 
-          <!-- Project 12 -->
-        <div class="card" data-tags="design">
+          <!-- Project 11-->
+        <div class="card" data-tags="frontend">
           <div class="project-img"><img src="mypicture/Cake orders .jpeg"
              width="300" height="90%"   alt=""></div>
+
+          <div class="project-overlay">
+            <a href="https://hopecakes.vercel.app/" target="_blank" class="view-btn">View Project ↗</a>
+          </div>
+        
           <h4 style="margin:10px 0 6px">Hope Cakes</h4>
           <p class="muted-small"> Hope Cakes e-commerce: Order your delicious cakes today. Delivery country wide.</p>
           <div class="tags"><span class="tag">Web Design</span><span class="tag">Frontend</span></div>
         </div>
 
-          <!-- Project 13 -->
-        <div class="card" data-tags="design">
+          <!-- Project 12 -->
+        <div class="card" data-tags="frontend">
           <div class="project-img"><img src="mypicture/mjengo furnitures.jpeg"
              width="300" height="90%"   alt=""></div>
+
+            <div class="project-overlay">
+              <a href="https://mjengo-prompt-craft.vercel.app/
+        " target="_blank" class="view-btn">View Project ↗</a>
+            </div>
+  
           <h4 style="margin:10px 0 6px">Mjengo Furnitures</h4>
           <p class="muted-small">Mjengo Furnitures:Where elegance meet the wood. Order your stylish furniture today.</p>
           <div class="tags"><span class="tag">Web Design</span><span class="tag">Frontend</span></div>
         </div>
-
 
       </div>
     </section>
@@ -750,17 +1051,40 @@ nav a:hover {
       </div>
     </section>
 
-    <section id="faq" style="margin-top:30px" class="reveal faq">
-      <h3>FAQ</h3>
-      <div class="q">How long does a website take to build?</div>
-      <div class="ans">It depends on complexity, simple 1‑page sites can take 3–7 days; full apps may take several weeks.</div>
+    <section id="faq" style="margin-top:50px" class="reveal faq">
+  <h3>Engineering FAQ</h3>
 
-      <div class="q">Do you work remotely?</div>
-      <div class="ans">Yes, I take remote projects and can collaborate across time zones.</div>
+  <!-- 01: System Architecture -->
+  <div class="faq-item">
+    <div class="q">How do you approach system architecture for new SaaS or Fintech projects?</div>
+    <div class="ans">I prioritize <strong>scalability and maintainability</strong>. I implement component-driven frontends (React) paired with robust Node.js backends, ensuring data integrity through strict validation, PostgreSQL/NoSQL schemas, and clean architectural patterns.</div>
+  </div>
 
-      <div class="q">Can you show me the code?</div>
-      <div class="ans">Absolutely, I share GitHub repos or deploy live demos for review.</div>
-    </section>
+  <!-- 02: Security & Compliance -->
+  <div class="faq-item">
+    <div class="q">How do you handle security and compliance in regulated domains?</div>
+    <div class="ans">Security is baked into the development lifecycle. I implement <strong>JWT/OAuth2 authentication, Role-Based Access Control (RBAC)</strong>, and data encryption (AES-256) specifically tailored for Fintech and Aviation-tech security requirements.</div>
+  </div>
+
+  <!-- 03: Performance Optimization -->
+  <div class="faq-item">
+    <div class="q">What is your strategy for optimizing performance in data-heavy applications?</div>
+    <div class="ans">I focus on <strong>latency reduction and efficient data fetching</strong>. This includes implementing Redis caching, optimizing database indexing, and leveraging asynchronous processing for heavy background tasks to keep the UI responsive.</div>
+  </div>
+
+  <!-- 04: Legacy Systems -->
+  <div class="faq-item">
+    <div class="q">Can you integrate modern stacks with existing legacy systems or APIs?</div>
+    <div class="ans">Yes. Much of my work involves building <strong>middleware layers</strong> to bridge modern interfaces with complex legacy backends or integrating specialized financial and engineering APIs without compromising system uptime.</div>
+  </div>
+
+  <!-- 05: DevOps & Deployment -->
+  <div class="faq-item">
+    <div class="q">What is your workflow for production-grade deployments?</div>
+    <div class="ans">I utilize modern <strong>CI/CD pipelines, Docker containerization, and Git</strong>. My focus is on automated testing and zero-downtime deployments to ensure stability in user-critical environments.</div>
+  </div>
+</section>
+
 
   <form id="contactForm" 
       action="https://formspree.io/f/xgvvqbpz" 
@@ -780,11 +1104,34 @@ nav a:hover {
 
 
 
-    <footer>
-      <div>© <strong>Dev Luki</strong>  Built with Precision · Nairobi, Kenya</div>
-      <div style="margin-top:8px"><small class="muted-small">Check it out </small></div>
-    </footer>
-  </main>
+  <footer>
+  <!-- Social Media Icons Section -->
+  <div class="social-links">
+    <a href="https://github.com/lukii3564" target="_blank" title="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/lukoye-jackson-b86a352a2/" target="_blank" title="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.instagram.com/lukii3564/" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.instagram.com/lukii3564/" target="_blank" title="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://wa.me/+254710520097" target="_blank" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <div style="margin-top:20px">
+    © <strong>Dev Luki</strong> · Built with Precision · Nairobi, Kenya
+  </div>
+  <div style="margin-top:8px">
+    <small class="muted-small">Check it out</small>
+  </div>
+</footer>
+
 
   <script>
     // helpers
